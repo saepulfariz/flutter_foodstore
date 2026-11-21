@@ -15,3 +15,18 @@ Install Dependencies
 - flutter pub add flutter_rating_bar
 
 
+
+
+-- Bloc
+Klik kanan di folder block, 
+- Bloc : New Bloc 
+- Lalu isi nama sesuaikan, contoh Auth
+- lalu ubah nama nya, biasa nya bloc jadi auth
+Ada 3 file, auth_bloc.dart, auth_event.dart, auth_state.dart
+
+- Generate frezzed
+dart run build_runner build --delete-conflicting-outputs
+- hasil nya auth_bloc.freezed.dart
+
+
+Update auth_interceptor.dart

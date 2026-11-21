@@ -1,7 +1,12 @@
 import 'package:dio/dio.dart';
+import 'package:flutter_foodstore/bloc/auth/auth_bloc.dart';
 import 'package:flutter_foodstore/resource/local/auth_local_resource.dart';
 
 class AuthInterceptor extends Interceptor {
+  final AuthBloc authBloc;
+
+  AuthInterceptor(this.authBloc);
+
   @override
   void onRequest(RequestOptions options, handler) async {
     final token = await AuthLocalResource.getToken();
@@ -16,6 +21,7 @@ class AuthInterceptor extends Interceptor {
   @override
   void onError(DioException err, handler) async {
     if (err.response?.statusCode == 401) {
+      authBloc.add(const AuthEvent.logoutRequested());
       await AuthLocalResource.deleteToken();
     }
     super.onError(err, handler);
