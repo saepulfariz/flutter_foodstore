@@ -1,0 +1,17 @@
+Install Dependencies
+
+- flutter pub add dio
+- flutter pub add either_dart
+- flutter pub add flutter_bloc
+- flutter pub add flutter_secure_storage
+
+- flutter pub add freezed_annotation
+- flutter pub add dev:build_runner
+- flutter pub add dev:freezed
+
+- flutter pub add go_router
+- flutter pub add image_picker
+- flutter pub add webview_flutter
+- flutter pub add flutter_rating_bar
+
+
