@@ -8,22 +8,24 @@ class AuthInterceptor extends Interceptor {
   AuthInterceptor(this.authBloc);
 
   @override
-  void onRequest(RequestOptions options, handler) async {
+  void onRequest(
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     final token = await AuthLocalResource.getToken();
     options.headers['Accept'] = 'application/json';
-    options.headers['Content-Type'] = 'application/json';
-    if (token != null) {
-      options.headers["Authorization"] = 'Bearer $token';
+    if (token != null && token.isNotEmpty) {
+      options.headers['Authorization'] = 'Bearer $token';
     }
-    super.onRequest(options, handler);
+    handler.next(options);
   }
 
   @override
-  void onError(DioException err, handler) async {
+  void onError(DioException err, ErrorInterceptorHandler handler) async {
     if (err.response?.statusCode == 401) {
       authBloc.add(const AuthEvent.logoutRequested());
       await AuthLocalResource.deleteToken();
     }
-    super.onError(err, handler);
+    handler.next(err);
   }
 }

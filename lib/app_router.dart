@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_foodstore/bloc/auth/auth_bloc.dart';
+import 'package:flutter_foodstore/bloc/profile/profile_bloc.dart';
 import 'package:flutter_foodstore/page/auth/login_page.dart';
 import 'package:flutter_foodstore/page/auth/register_page.dart';
 import 'package:flutter_foodstore/page/dashboard/cart_page.dart';
@@ -62,9 +64,11 @@ class AppRouter {
               return CartPage();
             },
           ),
+          // penambahan ada pada route profile
           GoRoute(
             path: '/dashboard/profile',
             builder: (context, state) {
+              context.read<ProfileBloc>().add(ProfileEvent.loadProfile());
               return ProfilePage();
             },
           ),
